@@ -123,3 +123,116 @@ class AVLTree:
 
         return node
 
+    def _get_min_value_node(self, node: Node) -> Node:
+        """
+        Retorna o nó com o menor valor de chave (mais à esquerda) a partir de um dado nó.
+        """
+        current = node
+        while current.left:
+            current = current.left
+        return current
+
+    def _rebalance(self, node: Node) -> Node:
+        """
+        Calcula as alturas e rebalanceia a subárvore a partir do nó fornecido.
+        Retorna a nova raiz da subárvore após o rebalanceamento.
+        """
+        node.height = 1 + max(self.get_height(node.left), self.get_height(node.right))
+        balance = self.get_balance(node)
+
+        # Caso 1 - Left-Left (Esquerda-Esquerda)
+        if balance > 1 and self.get_balance(node.left) >= 0:
+            return self._rotate_right(node)
+
+        # Caso 2 - Left-Right (Esquerda-Direita)
+        if balance > 1 and self.get_balance(node.left) < 0:
+            node.left = self._rotate_left(node.left)
+            return self._rotate_right(node)
+
+        # Caso 3 - Right-Right (Direita-Direita)
+        if balance < -1 and self.get_balance(node.right) <= 0:
+            return self._rotate_left(node)
+
+        # Caso 4 - Right-Left (Direita-Esquerda)
+        if balance < -1 and self.get_balance(node.right) > 0:
+            node.right = self._rotate_right(node.right)
+            return self._rotate_left(node)
+
+        return node
+
+    def _delete_key(self, node: Optional[Node], key: int) -> Optional[Node]:
+        """
+        Deleta fisicamente o nó correspondente à chave informada e rebalanceia a subárvore.
+        Método auxiliar usado principalmente no caso de deleção com dois filhos.
+        """
+        if not node:
+            return None
+
+        if key < node.key:
+            node.left = self._delete_key(node.left, key)
+        elif key > node.key:
+            node.right = self._delete_key(node.right, key)
+        else:
+            # Encontrou o nó a ser deletado fisicamente
+            if not node.left:
+                return node.right
+            elif not node.right:
+                return node.left
+
+            # Caso de dois filhos: sucessor em-ordem
+            temp = self._get_min_value_node(node.right)
+            node.key = temp.key
+            node.tasks = temp.tasks
+            node.right = self._delete_key(node.right, temp.key)
+
+        return self._rebalance(node)
+
+    def delete(self, priority: int, task_id: str) -> None:
+        """
+        Remove uma tarefa com base na sua prioridade e ID único.
+        Se a lista de tarefas da prioridade informada esvaziar, o nó correspondente é deletado fisicamente.
+        """
+        self.root = self._delete(self.root, priority, task_id)
+
+    def _delete(self, node: Optional[Node], priority: int, task_id: str) -> Optional[Node]:
+        """
+        Método recursivo interno para buscar a prioridade e remover a tarefa com o ID fornecido.
+        """
+        if not node:
+            return None
+
+        if priority < node.key:
+            node.left = self._delete(node.left, priority, task_id)
+        elif priority > node.key:
+            node.right = self._delete(node.right, priority, task_id)
+        else:
+            # Encontramos o nó da prioridade correspondente. 
+            # Procuramos a tarefa específica pelo ID.
+            task_to_remove = None
+            for t in node.tasks:
+                if t.id == task_id:
+                    task_to_remove = t
+                    break
+
+            if task_to_remove:
+                node.tasks.remove(task_to_remove)
+
+            # Se ainda existem tarefas restantes com essa prioridade, mantemos o nó
+            if len(node.tasks) > 0:
+                return node
+
+            # Se a lista esvaziou, removemos este nó fisicamente
+            if not node.left:
+                return node.right
+            elif not node.right:
+                return node.left
+
+            # Caso de dois filhos: sucessor em-ordem
+            temp = self._get_min_value_node(node.right)
+            node.key = temp.key
+            node.tasks = temp.tasks
+            node.right = self._delete_key(node.right, temp.key)
+
+        return self._rebalance(node)
+
+
