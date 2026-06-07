@@ -235,4 +235,58 @@ class AVLTree:
 
         return self._rebalance(node)
 
+    def get_all_ordered(self, order: str = "desc") -> List[Task]:
+        """
+        Retorna todas as tarefas da árvore ordenadas por prioridade.
+        :parametro order: "desc" para prioridade mais alta primeiro (decrescente), 
+                           "asc" para prioridade mais baixa primeiro (crescente).
+        """
+        tasks_list: List[Task] = []
+        self._inorder(self.root, tasks_list, order)
+        return tasks_list
+
+    def _inorder(self, node: Optional[Node], tasks_list: List[Task], order: str) -> None:
+        """
+        Realiza o percurso em-ordem (crescente ou decrescente) recursivamente.
+        """
+        if not node:
+            return
+
+        if order == "desc":
+            # Direita -> Raiz -> Esquerda
+            self._inorder(node.right, tasks_list, order)
+            tasks_list.extend(node.tasks)
+            self._inorder(node.left, tasks_list, order)
+        else:
+            # Esquerda -> Raiz -> Direita
+            self._inorder(node.left, tasks_list, order)
+            tasks_list.extend(node.tasks)
+            self._inorder(node.right, tasks_list, order)
+
+    def get_highest_priority(self) -> Optional[Task]:
+        """
+        Retorna a tarefa com a maior prioridade (nó mais à direita).
+        Se houver múltiplas tarefas com a mesma prioridade, retorna a mais antiga.
+        """
+        if not self.root:
+            return None
+        current = self.root
+        while current.right:
+            current = current.right
+        return current.tasks[0]
+
+    def get_lowest_priority(self) -> Optional[Task]:
+        """
+        Retorna a tarefa com a menor prioridade (nó mais à esquerda).
+        Se houver múltiplas tarefas com a mesma prioridade, retorna a mais antiga.
+        """
+        if not self.root:
+            return None
+        current = self.root
+        while current.left:
+            current = current.left
+        return current.tasks[0]
+
+
+
 
