@@ -263,5 +263,30 @@ class AVLTree:
             tasks_list.extend(node.tasks)
             self._inorder(node.right, tasks_list, order)
 
+    def get_highest_priority(self) -> Optional[Task]:
+        """
+        Retorna a tarefa com a maior prioridade (nó mais à direita).
+        Se houver múltiplas tarefas com a mesma prioridade, retorna a mais antiga.
+        """
+        if not self.root:
+            return None
+        current = self.root
+        while current.right:
+            current = current.right
+        return current.tasks[0]
+
+    def get_lowest_priority(self) -> Optional[Task]:
+        """
+        Retorna a tarefa com a menor prioridade (nó mais à esquerda).
+        Se houver múltiplas tarefas com a mesma prioridade, retorna a mais antiga.
+        """
+        if not self.root:
+            return None
+        current = self.root
+        while current.left:
+            current = current.left
+        return current.tasks[0]
+
+
 
 
