@@ -1,6 +1,8 @@
 from typing import List, Optional
 from src.task import Task
 
+#Observação: mantivemos os comentários para fins de documentação e facilitar a nossa compreensão
+
 class Node:
     def __init__(self, priority: int, task: Task):
         """
@@ -68,3 +70,56 @@ class AVLTree:
         y.height = 1 + max(self.get_height(y.left), self.get_height(y.right))
 
         return y
+
+    def insert(self, task: Task) -> None:
+        """
+        Insere uma nova tarefa na árvore AVL.
+        A inserção é feita com base na prioridade da tarefa.
+        """
+        self.root = self._insert(self.root, task)
+
+    def _insert(self, node: Optional[Node], task: Task) -> Node:
+        """
+        Insere recursivamente e rebalanceia a árvore AVL.
+        """
+        if not node:
+            return Node(task.priority, task)
+
+        # Inserção clássica da árvore binária de busca
+        if task.priority < node.key:
+            node.left = self._insert(node.left, task)
+        elif task.priority > node.key:
+            node.right = self._insert(node.right, task)
+        else:
+            # Prioridade já existe: adiciona a tarefa à lista do nó correspondente
+            node.tasks.append(task)
+            return node
+
+        # Atualiza a altura do nó pai atual
+        node.height = 1 + max(self.get_height(node.left), self.get_height(node.right))
+
+        # Obtém o fator de balanceamento
+        balance = self.get_balance(node)
+
+        # os 4 casos para tratamento de balanceamento:
+
+        # Caso 1 - Left-Left (Esquerda-Esquerda)
+        if balance > 1 and task.priority < node.left.key:
+            return self._rotate_right(node)
+
+        # Caso 2 - Right-Right (Direita-Direita)
+        if balance < -1 and task.priority > node.right.key:
+            return self._rotate_left(node)
+
+        # Caso 3 - Left-Right (Esquerda-Direita)
+        if balance > 1 and task.priority > node.left.key:
+            node.left = self._rotate_left(node.left)
+            return self._rotate_right(node)
+
+        # Caso 4 - Right-Left (Direita-Esquerda)
+        if balance < -1 and task.priority < node.right.key:
+            node.right = self._rotate_right(node.right)
+            return self._rotate_left(node)
+
+        return node
+
