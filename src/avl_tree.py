@@ -32,3 +32,39 @@ class AVLTree:
         if not node:
             return 0
         return self.get_height(node.left) - self.get_height(node.right)
+
+    def _rotate_right(self, y: Node) -> Node:
+        """
+        Executa uma rotação simples à direita no nó y.
+        Retorna a nova raiz da subárvore (x).
+        """
+        x = y.left
+        T2 = x.right
+
+        # Realiza a rotação
+        x.right = y
+        y.left = T2
+
+        # Atualiza as alturas
+        y.height = 1 + max(self.get_height(y.left), self.get_height(y.right))
+        x.height = 1 + max(self.get_height(x.left), self.get_height(x.right))
+
+        return x
+
+    def _rotate_left(self, x: Node) -> Node:
+        """
+        Executa uma rotação simples à esquerda no nó x.
+        Retorna a nova raiz da subárvore (y).
+        """
+        y = x.right
+        T2 = y.left
+
+        # Realiza a rotação
+        y.left = x
+        x.right = T2
+
+        # Atualiza as alturas
+        x.height = 1 + max(self.get_height(x.left), self.get_height(x.right))
+        y.height = 1 + max(self.get_height(y.left), self.get_height(y.right))
+
+        return y
