@@ -16,7 +16,7 @@ Ele funciona da seguinte forma:
 3. Isso garante que operações como **inserir tarefas**, **concluir/remover itens** e **buscar a tarefa mais urgente** ocorram instantaneamente (em tempo logarítmico).
 4. O programa também salva e recupera as tarefas automaticamente em um arquivo `tasks.json` para que você não perca seu progresso ao fechá-lo.
 
-### Funcionalidades:
+## Funcionalidades:
 As principais funcionalidades do programa são:
 
 * **Inserir Tarefa com Prioridade:** Adiciona tarefas contendo descrição e nível de urgência (1 a 100).
