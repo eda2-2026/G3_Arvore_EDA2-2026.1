@@ -235,4 +235,33 @@ class AVLTree:
 
         return self._rebalance(node)
 
+    def get_all_ordered(self, order: str = "desc") -> List[Task]:
+        """
+        Retorna todas as tarefas da árvore ordenadas por prioridade.
+        :parametro order: "desc" para prioridade mais alta primeiro (decrescente), 
+                           "asc" para prioridade mais baixa primeiro (crescente).
+        """
+        tasks_list: List[Task] = []
+        self._inorder(self.root, tasks_list, order)
+        return tasks_list
+
+    def _inorder(self, node: Optional[Node], tasks_list: List[Task], order: str) -> None:
+        """
+        Realiza o percurso em-ordem (crescente ou decrescente) recursivamente.
+        """
+        if not node:
+            return
+
+        if order == "desc":
+            # Direita -> Raiz -> Esquerda
+            self._inorder(node.right, tasks_list, order)
+            tasks_list.extend(node.tasks)
+            self._inorder(node.left, tasks_list, order)
+        else:
+            # Esquerda -> Raiz -> Direita
+            self._inorder(node.left, tasks_list, order)
+            tasks_list.extend(node.tasks)
+            self._inorder(node.right, tasks_list, order)
+
+
 
