@@ -15,6 +15,11 @@ def index():
     """Retorna a página principal do frontend"""
     return render_template('index.html')
 
+@app.route('/tree-info')
+def tree_info():
+    """Retorna a página com informações sobre a Árvore AVL"""
+    return render_template('tree_info.html')
+
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
     """Retorna todas as tarefas ordenadas por prioridade (descendente)"""
