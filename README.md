@@ -27,13 +27,98 @@ As principais funcionalidades do programa são:
 * **Listagem Ordenada:** Retorna e exibe a lista completa de pendências ordenada de forma crescente ou decrescente.
 * **Salvar e Carregar Automático:** Salva todo o progresso em um arquivo `tasks.json` e o reconstrói fielmente ao iniciar o programa.
 
-## Acesso Online
+## Fluxo de Operações
+
+<div align="center">
+  <img src="./assets/fluxo.png" alt="Fluxo de tarefas" width="90%">
+  <br>
+  <em></em>
+</div>
+
+<br>
+
+## Exemplo de uso
+
+<div align="center">
+  <img src="./assets/exemplodeuso.png" alt="Exemplo de uso" width="90%">
+  <br>
+  <em>Exemplo de uso</em>
+</div>
+
+<br>
+
+## Acesso 
+### Máquina local
+
+1. Instale as dependências do projeto:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Execute a aplicação:
+
+```bash
+
+python app.py
+```
+
+### Online pelo vercel
+
+Acesse o link [https://arvoreeda2.vercel.app/](https://arvoreeda2.vercel.app/)
 
 
 
 ## Screenshots
 
 
+<div align="center">
+  <img src="./assets/inicio.png" alt="Interface parte 1" width="90%">
+  <br>
+  <em>Tela inicial do sistema</em>
+</div>
+
+<br>
+
+<div align="center">
+  <img src="./assets/tela2.png" alt="Interface parte 2" width="90%">
+  <br>
+  <em>Tela de tarefas</em>
+</div>
+
+<br>
+
+<div align="center">
+  <img src="./assets/tela3.png" alt="Interface parte 3" width="90%">
+  <br>
+  <em>Card de edição de Tarefa</em>
+</div>
+
+<br>
+
+<div align="center">
+  <img src="./assets/tela4.png" alt="Interface parte 4" width="90%">
+  <br>
+  <em>Tarefas Concluídas</em>
+</div>
+
+<br>
+
+<div align="center">
+  <img src="./assets/tela5.png" alt="Interface parte 5" width="90%">
+  <br>
+  <em>Informações de Árvore AVL</em>
+</div>
+
+<br>
+
+<div align="center">
+  <img src="./assets/tela6.png" alt="Interface parte 6" width="90%">
+  <br>
+  <em>Visualização da Árvore AVL formada</em>
+</div>
+
+<br>
 
 ## Video
 
