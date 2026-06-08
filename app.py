@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import os
 from src.avl_tree import AVLTree
 from src.task import Task
 from src.persistence import save_tasks, load_tasks
 
 app = Flask(__name__)
+CORS(app)  # Habilita CORS para todas as rotas
 DATA_FILE = "tasks.json"
 
 # Carrega as tarefas ao iniciar
