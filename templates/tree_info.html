@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador da Árvore AVL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #6366f1;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .info-section {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #6366f1;
+        }
+
+        .info-section h5 {
+            color: #6366f1;
+            margin-bottom: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list .badge {
+            background: #6366f1;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e11d48;
+        }
+
+        .comparison-table {
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #6366f1;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: #6366f1;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #6366f1;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 35px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background: #e5e7eb;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-content {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #6366f1;
+        }
+
+        .timeline-content h6 {
+            color: #6366f1;
+            margin-bottom: 8px;
+        }
+
+        .btn-back {
+            margin-bottom: 20px;
+        }
+
+        .performance-metric {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #6366f1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-light btn-back">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+
+        <h1>Visualizador da Árvore AVL</h1>
+
+        <!-- Sobre a Implementação -->
+        <div class="info-section">
+            <h5><i class="bi bi-info-circle"></i> Sobre a Árvore AVL</h5>
+            <p>
+                A <strong>Árvore AVL (Adelson-Velski e Landis)</strong> é uma estrutura de dados balanceada que mantém 
+                a altura da árvore mínima, garantindo operações de inserção, busca e remoção em tempo 
+                <code>O(log n)</code>.
+            </p>
+            <p>
+                No seu gerenciador de tarefas, cada <strong>prioridade</strong> é armazenada como uma chave na árvore, 
+                e as tarefas com a mesma prioridade são agrupadas em listas dentro de cada nó.
+            </p>
+        </div>
+
+        <!-- Características -->
+        <div class="info-section">
+            <h5><i class="bi bi-star"></i> Características da Nossa Implementação</h5>
+            <ul class="feature-list">
+                <li>
+                    <span class="badge">✓</span>
+                    <strong>Auto-balanceamento:</strong> A árvore se rebalanceia automaticamente após cada inserção/remoção
+                </li>
+                <li>
+                    <span class="badge">✓</span>
+                    <strong>Rotações (4 casos):</strong> Left-Left, Left-Right, Right-Right, Right-Left
+                </li>
+                <li>
+                    <span class="badge">✓</span>
+                    <strong>Múltiplas tarefas por prioridade:</strong> Cada nó pode armazenar várias tarefas
+                </li>
+                <li>
+                    <span class="badge">✓</span>
+                    <strong>Ordenação cronológica:</strong> Tarefas com mesma prioridade mantêm ordem de criação
+                </li>
+                <li>
+                    <span class="badge">✓</span>
+                    <strong>Persistência:</strong> Dados salvos em JSON e restaurados automaticamente
+                </li>
+                <li>
+                    <span class="badge">✓</span>
+                    <strong>API RESTful:</strong> Integração fácil com outros sistemas via HTTP
+                </li>
+            </ul>
+        </div>
+
+        <!-- Performance -->
+        <div class="info-section">
+            <h5><i class="bi bi-lightning"></i> Análise de Performance</h5>
+            <p>Graças à Árvore AVL, todas as operações são otimizadas:</p>
+            <div style="margin-top: 15px;">
+                <div class="performance-metric">Inserir: O(log n)</div>
+                <div class="performance-metric">Remover: O(log n)</div>
+                <div class="performance-metric">Buscar: O(log n)</div>
+                <div class="performance-metric">Altura máx: O(log n)</div>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Operação</th>
+                        <th>Árvore AVL</th>
+                        <th>Lista simples</th>
+                        <th>Melhoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Inserir</td>
+                        <td>O(log n)</td>
+                        <td>O(n)</td>
+                        <td>Até 100x mais rápido</td>
+                    </tr>
+                    <tr>
+                        <td>Remover</td>
+                        <td>O(log n)</td>
+                        <td>O(n)</td>
+                        <td>Até 100x mais rápido</td>
+                    </tr>
+                    <tr>
+                        <td>Buscar</td>
+                        <td>O(log n)</td>
+                        <td>O(n)</td>
+                        <td>Até 100x mais rápido</td>
+                    </tr>
+                    <tr>
+                        <td>Memória</td>
+                        <td>O(n)</td>
+                        <td>O(n)</td>
+                        <td>➖ Igual</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Como Funciona -->
+        <div class="info-section">
+            <h5><i class="bi bi-diagram-3"></i> Fluxo de Operações</h5>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h6>1. Adicionar Tarefa</h6>
+                        <p>A tarefa é inserida na árvore com base em sua prioridade. Se a prioridade já existe, 
+                        a tarefa é adicionada à lista do nó correspondente.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h6>2. Calcular Fator de Balanceamento</h6>
+                        <p>Após cada inserção, o fator de balanceamento é calculado: 
+                        <code>altura_esquerda - altura_direita</code></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h6>3. Detectar Desbalanceamento</h6>
+                        <p>Se o fator ficar fora de [-1, 1], a árvore está desbalanceada e precisa de rotações.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h6>4. Aplicar Rotações</h6>
+                        <p>As rotações rebalanceiam a árvore. Pode ser simples (um lado) ou dupla (ambos os lados).</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h6>5. Salvar Dados</h6>
+                        <p>Todas as tarefas são automaticamente persistidas em <code>tasks.json</code>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exemplos de Uso -->
+        <div class="info-section">
+            <h5><i class="bi bi-play-circle"></i> Exemplos de Uso</h5>
+            <p><strong>Exemplo 1: Adicionar 3 tarefas com prioridades diferentes</strong></p>
+            <pre style="background: #f9fafb; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>
+1. Tarefa "Estudar" - Prioridade 85
+2. Tarefa "Limpar casa" - Prioridade 30
+3. Tarefa "Exercitar" - Prioridade 60
+
+Resultado na árvore AVL (ordem descendente):
+1. "Estudar" (85) ← Mais urgente
+2. "Exercitar" (60)
+3. "Limpar casa" (30) ← Menos urgente
+            </code></pre>
+
+            <p style="margin-top: 20px;"><strong>Exemplo 2: Estrutura interna da árvore com 5 tarefas</strong></p>
+            <pre style="background: #f9fafb; padding: 15px; border-radius: 8px; overflow-x: auto;"><code>
+        [60]
+       /    \
+     [30]   [85]
+    /       /
+  [15]    [70]
+
+Onde cada número é uma prioridade.
+Se houver tarefas duplicadas:
+- Nó [60] pode conter: ["Tarefa A", "Tarefa B"]
+            </code></pre>
+        </div>
+
+        <!-- Casos de Rotação -->
+        <div class="info-section">
+            <h5><i class="bi bi-arrow-left-right"></i> Os 4 Casos de Rotação AVL</h5>
+            <div style="margin-top: 15px;">
+                <p><strong>Caso 1: Left-Left (LL)</strong></p>
+                <p style="margin-left: 10px; color: #666;">
+                    Inserção no filho esquerdo do filho esquerdo → 1 rotação à direita
+                </p>
+
+                <p style="margin-top: 15px;"><strong>Caso 2: Right-Right (RR)</strong></p>
+                <p style="margin-left: 10px; color: #666;">
+                    Inserção no filho direito do filho direito → 1 rotação à esquerda
+                </p>
+
+                <p style="margin-top: 15px;"><strong>Caso 3: Left-Right (LR)</strong></p>
+                <p style="margin-left: 10px; color: #666;">
+                    Inserção no filho direito do filho esquerdo → Rotação esquerda + Rotação direita
+                </p>
+
+                <p style="margin-top: 15px;"><strong>Caso 4: Right-Left (RL)</strong></p>
+                <p style="margin-left: 10px; color: #666;">
+                    Inserção no filho esquerdo do filho direito → Rotação direita + Rotação esquerda
+                </p>
+            </div>
+        </div>
+
+        <!-- Dicas de Uso -->
+        <div class="info-section">
+            <h5><i class="bi bi-lightbulb"></i> Dicas e Boas Práticas</h5>
+            <ul class="feature-list">
+                <li>
+                    <span class="badge"></span>
+                    Use prioridades bem distribuídas (não todas iguais) para maximizar os benefícios da AVL
+                </li>
+                <li>
+                    <span class="badge"></span>
+                    Tarefas com a mesma prioridade mantêm ordem cronológica de criação
+                </li>
+                <li>
+                    <span class="badge"></span>
+                    A altura da árvore nunca excederá 1.44 * log₂(n+1) - próximo ao logarítmico perfeito
+                </li>
+                <li>
+                    <span class="badge"></span>
+                    Para manutenção manual do banco, edite <code>tasks.json</code> (validação será feita ao carregar)
+                </li>
+                <li>
+                    <span class="badge"></span>
+                    Cada tarefa tem um ID único de 8 caracteres para evitar colisões
+                </li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #e0e7ff; border-radius: 10px; text-align: center;">
+            <p style="margin: 0;">
+                <strong>Quer voltar ao gerenciador?</strong>
+                <a href="/" class="btn btn-primary" style="margin-left: 10px;">
+                    Ir para as Tarefas
+                </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
