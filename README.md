@@ -65,7 +65,7 @@ python app.py
 
 ### Online pelo vercel
 
-Acesse o link [https://arvoreeda2.vercel.app/](https://arvoreeda2.vercel.app/)
+Acesse o link [https://arvore-ten.vercel.app/](https://arvore-ten.vercel.app/)
 
 
 
