@@ -120,7 +120,7 @@ Acesse o link [https://arvore-ten.vercel.app/](https://arvore-ten.vercel.app/)
 
 <br>
 
-## Video
+## Vídeo
 
 <div align="center">
   <a href="https://youtu.be/Uf5XsuNofQ8">
