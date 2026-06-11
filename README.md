@@ -123,8 +123,8 @@ Acesse o link [https://arvore-ten.vercel.app/](https://arvore-ten.vercel.app/)
 ## Video
 
 <div align="center">
-  <a href="">
-    <img src="" width="50%" alt="Vídeo no YouTube">
+  <a href="https://youtu.be/Uf5XsuNofQ8">
+    <img src="https://img.youtube.com/vi/Uf5XsuNofQ8/maxresdefault.jpg" width="50%" alt="Vídeo no YouTube">
   </a>
 </div>
 
